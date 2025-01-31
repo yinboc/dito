@@ -1,0 +1,47 @@
+datasets:
+  train:
+    name: wrapper_cae
+    args:
+      dataset:
+        name: class_folder
+        args: {root_path: , resize: 256, rand_crop: 256, rand_flip: true, image_only: true}
+      resize_inp: 256
+      gt_glores_lb: 256
+      gt_glores_ub: 256
+      gt_patch_size: 256
+    loader:
+      batch_size: 64
+      num_workers: 64
+  
+  val:
+    name: wrapper_cae
+    args:
+      dataset:
+        name: class_folder
+        args: {root_path: , resize: 256, square_crop: true, image_only: true}
+      resize_inp: 256
+      gt_glores_lb: 256
+      gt_glores_ub: 256
+      gt_patch_size: 256
+    loader:
+      batch_size: 64
+      num_workers: 64
+  
+  eval_ae:
+    name: wrapper_cae
+    args:
+      dataset:
+        name: class_folder
+        args: {root_path: , resize: 256, square_crop: true, image_only: true}
+      resize_inp: 256
+      gt_glores_lb: 256
+      gt_glores_ub: 256
+      gt_patch_size: 256
+    loader:
+      batch_size: 64
+      num_workers: 64
+      drop_last: false
+
+visualize_ae_dir: null
+visualize_ae_random_n_samples: 32
+eval_ae_max_samples: 5000

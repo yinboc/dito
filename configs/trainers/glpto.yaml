@@ -1,0 +1,24 @@
+trainer: ldm_trainer
+
+autocast_bfloat16: true
+
+max_iter: 300000
+epoch_iter: 10000
+eval_iter: 50000
+save_iter: 50000
+vis_iter: 50000
+
+optimizers:
+  encoder:
+    name: adam
+    args: {lr: 1.e-4, betas: [0.5, 0.9]}
+  renderer:
+    name: adam
+    args: {lr: 1.e-4, betas: [0.5, 0.9]}
+  disc:
+    name: adam
+    args: {lr: 1.e-4, betas: [0.5, 0.9]}
+gan_start_after_iters: 50000
+find_unused_parameters: true
+
+evaluate_ae: true

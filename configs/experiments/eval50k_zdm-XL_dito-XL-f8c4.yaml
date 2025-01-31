@@ -1,0 +1,44 @@
+__base__:
+  - configs/datasets/imagenet_zdm.yaml
+  - configs/models/zdm-XL_imagenet.yaml
+  - configs/trainers/zdm.yaml
+
+eval_zdm_max_samples: 50000
+
+model:
+  load_ckpt: save/zdm-XL_dito-XL-f8c4/ckpt-last.pth
+  name: dito
+  args:
+    zdm_force_guidance: 2.0
+    renderer_ema_rate: 1
+    
+    encoder:
+      name: vqgan_encoder
+      args: {config_name: f8c4}
+    
+    z_shape: [4, 32, 32]
+    z_layernorm: true
+    
+    decoder: {name: identity}
+    
+    renderer:
+      name: fixres_renderer_wrapper
+      args:
+        net:
+          name: consistency_decoder_unet
+          args:
+            in_channels: 3
+            z_dec_channels: 4
+            c0: 320
+            c1: 640
+            c2: 1024
+            pe_dim: 320
+            t_dim: 1280
+    
+    render_diffusion:
+      name: fm
+      args: {timescale: 1000.0}
+    render_sampler: {name: fm_euler_sampler}
+    render_n_steps: 50
+
+    loss_config: {}

@@ -1,0 +1,20 @@
+trainer: ldm_trainer
+
+autocast_bfloat16: true
+
+max_iter: 400000
+epoch_iter: 10000
+eval_iter: 100000
+save_iter: 100000
+vis_iter: 100000
+ckpt_select_metric:
+  name: zdm_ema_loss
+  type: min
+
+optimizers:
+  zdm:
+    name: adamw
+    args: {lr: 1.e-4, weight_decay: 0.0}
+find_unused_parameters: true
+
+evaluate_zdm: true

@@ -1,0 +1,12 @@
+model:
+  args:
+    zdm_net:
+      name: dit_xl_2
+      args: {n_classes: 1001}
+    zdm_diffusion:
+      name: fm
+      args: {timescale: 1000.0}
+    zdm_sampler: {name: fm_euler_sampler}
+    zdm_n_steps: 200
+    zdm_train_normalize: false
+    zdm_class_cond: 1000

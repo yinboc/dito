@@ -1,0 +1,9 @@
+torch==2.3.0
+torchvision==0.18.0
+torch_fidelity==0.3.0
+omegaconf
+pyyaml
+wandb
+webdataset
+timm
+einops

@@ -1,0 +1,53 @@
+datasets:
+  train:
+    name: wrapper_cae
+    args:
+      dataset:
+        name: class_folder
+        args: {root_path: , resize: 256, square_crop: true, rand_flip: true, drop_label_p: 0.1}
+      resize_inp: 256
+      gt_glores_lb: 256
+      gt_glores_ub: 256
+      gt_patch_size: 256
+    loader:
+      batch_size: 256
+      num_workers: 64
+  
+  val:
+    name: wrapper_cae
+    args:
+      dataset:
+        name: class_folder
+        args: {root_path: , resize: 256, square_crop: true}
+      resize_inp: 256
+      gt_glores_lb: 256
+      gt_glores_ub: 256
+      gt_patch_size: 256
+    loader:
+      batch_size: 256
+      num_workers: 64
+  
+  eval_zdm:
+    name: wrapper_cae
+    args:
+      dataset:
+        name: class_folder
+        args: {root_path: , resize: 256, square_crop: true}
+      resize_inp: 256
+      gt_glores_lb: 256
+      gt_glores_ub: 256
+      gt_patch_size: 256
+    loader:
+      batch_size: 256
+      num_workers: 64
+      drop_last: false
+
+visualize_zdm_file: null
+visualize_zdm_setting:
+  name: class
+  n_classes: 1000
+visualize_zdm_random_n_samples: 12
+visualize_zdm_batch_size: 6
+visualize_zdm_guidance_list: [4]
+visualize_zdm_denoising_file: null
+eval_zdm_max_samples: 5000

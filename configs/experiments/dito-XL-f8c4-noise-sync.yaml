@@ -1,0 +1,43 @@
+__base__:
+  - configs/datasets/imagenet_ae.yaml
+  - configs/trainers/dito.yaml
+
+model:
+  name: dito
+  args:
+    encoder:
+      name: vqgan_encoder
+      args: {config_name: f8c4}
+    
+    z_shape: [4, 32, 32]
+    z_layernorm: true
+
+    zaug_p: 0.1
+    zaug_decoding_loss_type: suffix
+    zaug_zdm_diffusion:
+      name: fm
+      args: {timescale: 1000.0}
+    
+    decoder: {name: identity}
+    
+    renderer:
+      name: fixres_renderer_wrapper
+      args:
+        net:
+          name: consistency_decoder_unet
+          args:
+            in_channels: 3
+            z_dec_channels: 4
+            c0: 320
+            c1: 640
+            c2: 1024
+            pe_dim: 320
+            t_dim: 1280
+    
+    render_diffusion:
+      name: fm
+      args: {timescale: 1000.0}
+    render_sampler: {name: fm_euler_sampler}
+    render_n_steps: 50
+
+    loss_config: {}
